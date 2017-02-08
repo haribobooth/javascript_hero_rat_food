@@ -1,6 +1,7 @@
 var assert = require('assert');
 var Hero = require('../Hero');
 var Food = require('../Food');
+var Rat = require('../Rat');
 
 describe('Hero', function(){
 
@@ -35,7 +36,8 @@ describe('Hero', function(){
   describe('Eat', function(){
     var hero = new Hero('Sir Sean of Literature', 'Cigarettes');
     var food1 = new Food('Burrito', 50);
-    var food2 = new Food('Cigarettes', +5);
+    var food2 = new Food('Cigarettes', 5);
+
     it('should replenish health', function(){
       hero.health = 0;
       hero.eat(food1);
@@ -46,6 +48,19 @@ describe('Hero', function(){
       hero.health = 0;
       hero.eat(food2);
       assert.equal(8, hero.health);
+    });
+  });
+
+  describe('Eating poison', function(){
+    var hero = new Hero('Sir Sean of Literature', 'Cigarettes');
+    var rat = new Rat();
+    var food1 = new Food('Burrito', 50);
+    
+    it('should harm hero if food is poisoned', function(){
+      hero.health = 100;
+      rat.touch(food1);
+      hero.eat(food1);
+      assert.equal(50, hero.health);
     });
   });
 });
