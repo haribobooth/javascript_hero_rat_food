@@ -1,5 +1,6 @@
 var assert = require('assert');
 var Hero = require('../Hero');
+var Food = require('../Food');
 
 describe('Hero', function(){
 
@@ -28,6 +29,23 @@ describe('Hero', function(){
     var hero = new Hero('Sir Zsolt of the Barbarians', 'The skulls of his deceased enemies');
     it('should say name', function(){
       assert.equal('I am the great Sir Zsolt of the Barbarians', hero.talk());
+    });
+  });
+
+  describe('Eat', function(){
+    var hero = new Hero('Sir Sean of Literature', 'Cigarettes');
+    var food1 = new Food('Burrito', 50);
+    var food2 = new Food('Cigarettes', +5);
+    it('should replenish health', function(){
+      hero.health = 0;
+      hero.eat(food1);
+      assert.equal(50, hero.health);
+    });
+
+    it('should replenish more if favourite', function(){
+      hero.health = 0;
+      hero.eat(food2);
+      assert.equal(8, hero.health);
     });
   });
 });
